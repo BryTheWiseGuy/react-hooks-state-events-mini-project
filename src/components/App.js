@@ -13,6 +13,11 @@ function App() {
     setSelectedCategory(category);
   }
 
+  const filteredTasks = tasks.filter((task) => {
+    if (selectedCategory === "All") return true;
+    return task.category === selectedCategory
+  })
+
   function handleDeleteTask(index) {
     setTasks((tasks) => {
       const newTaskList = [...tasks];
@@ -30,7 +35,7 @@ function App() {
       <h2>My tasks</h2>
       <CategoryFilter categories={CATEGORIES} selectedCategory={selectedCategory} onFilter={handleClick} />
       <NewTaskForm categories={CATEGORIES} onTaskFormSubmit={handleNewTask}/>
-      <TaskList tasks={tasks} onDelete={handleDeleteTask} selectedCategory={selectedCategory} />
+      <TaskList tasks={filteredTasks} onDelete={handleDeleteTask} selectedCategory={selectedCategory} />
     </div>
   );
 }
